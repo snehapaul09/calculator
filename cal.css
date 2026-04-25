@@ -3,7 +3,6 @@
   padding: 0;
   box-sizing: border-box;
 }
-
 body {
   display: flex;
   justify-content: center;
@@ -12,21 +11,18 @@ body {
   background: #fbe7f3; /* softer pastel pink */
   font-family: Arial, sans-serif;
 }
-
 .container {
   position: relative;
   overflow: hidden;
   border-radius: 20px;
   box-shadow: 0 0 40px rgba(255, 182, 193, 0.5); /* soft pink glow */
 }
-
 .calculator {
   background: linear-gradient(135deg, #f8c8dc, #d6b3ff); /* pink + lavender */
   padding: 20px;
   border-radius: 20px;
   width: 320px;
 }
-
 #inputBox {
   width: 100%;
   background: rgba(255, 255, 255, 0.25);
@@ -39,18 +35,15 @@ body {
   margin-bottom: 15px;
   outline: none;
 }
-
 #inputBox::placeholder {
   color: rgba(90, 62, 92, 0.4);
 }
-
 .calculator div {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   gap: 10px;
   margin-bottom: 10px;
 }
-
 button {
   background: rgba(255, 255, 255, 0.35);
   color: #5a3e5c;
@@ -61,35 +54,28 @@ button {
   cursor: pointer;
   transition: all 0.15s ease;
 }
-
 button:hover {
   background: rgba(255, 255, 255, 0.6);
   transform: scale(1.05);
 }
-
 button:active {
   transform: scale(0.95);
 }
-
 .operator {
   color: #ff6f91; /* cute pink accent */
   background: rgba(255, 111, 145, 0.15);
 }
-
 .operator:hover {
   background: rgba(255, 111, 145, 0.3);
 }
-
 .equalBtn {
   background: linear-gradient(135deg, #ff6f91, #ff9671); /* pink-orange cute */
   color: white;
   font-weight: bold;
 }
-
 .equalBtn:hover {
   background: linear-gradient(135deg, #ff4f81, #ff7b54);
 }
-
 .slide-handle {
   display: flex;
   justify-content: center;
@@ -99,7 +85,6 @@ button:active {
   user-select: none;
   gap: 8px;
 }
-
 .handle-bar {
   width: 40px;
   height: 4px;
@@ -107,17 +92,14 @@ button:active {
   border-radius: 2px;
   transition: background 0.2s;
 }
-
 .slide-handle:hover .handle-bar {
   background: #ff6f91;
 }
-
 .slide-handle span {
   font-size: 0.65rem;
   color: rgba(90, 62, 92, 0.4);
   letter-spacing: 2px;
 }
-
 .history-panel {
   position: absolute;
   bottom: 0;
@@ -132,11 +114,9 @@ button:active {
   flex-direction: column;
   z-index: 10;
 }
-
 .history-panel.open {
   transform: translateY(0);
 }
-
 .history-header {
   display: flex;
   justify-content: space-between;
@@ -144,19 +124,16 @@ button:active {
   padding: 16px 20px 12px;
   border-bottom: 1px solid rgba(90, 62, 92, 0.15);
 }
-
 .history-header h3 {
   color: #ff6f91;
   font-size: 1rem;
   letter-spacing: 1px;
 }
-
 .history-actions {
   display: flex;
   align-items: center;
   gap: 8px;
 }
-
 .history-clear {
   background: rgba(255, 111, 145, 0.15);
   border: none;
@@ -167,12 +144,10 @@ button:active {
   font-size: 0.75rem;
   transition: all 0.2s;
 }
-
 .history-clear:hover {
   background: rgba(255, 111, 145, 0.3);
   transform: none;
 }
-
 .history-close {
   background: rgba(255, 255, 255, 0.3);
   border: none;
@@ -183,7 +158,6 @@ button:active {
   font-size: 0.8rem;
   transition: all 0.2s;
 }
-
 .history-close:hover {
   background: rgba(255, 111, 145, 0.2);
   color: #ff4f81;
@@ -197,16 +171,13 @@ button:active {
   list-style: none;
   padding: 8px 20px;
 }
-
 #historyList::-webkit-scrollbar {
   width: 3px;
 }
-
 #historyList::-webkit-scrollbar-thumb {
   background: rgba(255, 111, 145, 0.4);
   border-radius: 2px;
 }
-
 #historyList li {
   padding: 12px 0;
   border-bottom: 1px solid rgba(90, 62, 92, 0.1);
@@ -214,28 +185,23 @@ button:active {
   justify-content: space-between;
   align-items: center;
 }
-
 .history-left {
   flex: 1;
   cursor: pointer;
 }
-
 .history-left:hover .history-result {
   color: #ff6f91;
 }
-
 .history-expr {
   color: rgba(90, 62, 92, 0.5);
   font-size: 0.78rem;
   margin-bottom: 2px;
 }
-
 .history-result {
   color: #5a3e5c;
   font-size: 1.1rem;
   transition: color 0.15s;
 }
-
 .history-del-btn {
   background: transparent;
   border: none;
@@ -247,13 +213,11 @@ button:active {
   transition: all 0.15s;
   flex-shrink: 0;
 }
-
 .history-del-btn:hover {
   background: rgba(255, 111, 145, 0.2);
   color: #ff4f81;
   transform: none;
 }
-
 .empty-msg {
   text-align: center;
   color: rgba(90, 62, 92, 0.3);

@@ -3,7 +3,7 @@ let buttons = document.querySelectorAll('.calculator button');
 let string = "";
 let historyData = [];
 
-// ── Calculator Logic ──
+// Calculator Logic 
 buttons.forEach(button => {
   button.addEventListener('click', (e) => {
     let value = e.target.innerHTML;
@@ -48,13 +48,12 @@ buttons.forEach(button => {
   });
 });
 
-// ── History: Add Entry ──
+// History: Add Entry
 function addHistory(expr, result) {
   historyData.unshift({ expr, result });
   renderHistory();
 }
 
-// ── History: Render List ──
 function renderHistory() {
   let list = document.getElementById('historyList');
   list.innerHTML = '';
@@ -83,7 +82,6 @@ function renderHistory() {
       closePanel();
     });
 
-    // Right side: delete button
     let delBtn = document.createElement('button');
     delBtn.className = 'history-del-btn';
     delBtn.textContent = '✕';
@@ -99,7 +97,6 @@ function renderHistory() {
   });
 }
 
-// ── Panel Open/Close ──
 let panelOpen = false;
 
 function openPanel() {
@@ -111,23 +108,18 @@ function closePanel() {
   document.getElementById('historyPanel').classList.remove('open');
   panelOpen = false;
 }
-
-// Slide handle click
 document.getElementById('slideHandle').addEventListener('click', () => {
   if (panelOpen) closePanel();
   else openPanel();
 });
 
-// Close button
 document.getElementById('closeHistory').addEventListener('click', closePanel);
 
-// Clear All button
 document.getElementById('clearHistory').addEventListener('click', () => {
   historyData = [];
   renderHistory();
 });
 
-// ── Touch/Swipe Support (mobile) ──
 let touchStartY = 0;
 let handleEl = document.getElementById('slideHandle');
 
