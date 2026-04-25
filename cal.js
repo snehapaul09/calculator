@@ -20,17 +20,14 @@ buttons.forEach(button => {
         string = "";
       }
     }
-
     else if (value === 'AC') {
       string = "";
       input.value = string;
     }
-
     else if (value === 'DEL') {
       string = string.slice(0, -1);
       input.value = string;
     }
-
     else if (value === '%') {
       try {
         string = String(eval(string) / 100);
@@ -40,7 +37,6 @@ buttons.forEach(button => {
         string = "";
       }
     }
-
     else {
       string += value;
       input.value = string;
@@ -108,9 +104,43 @@ function closePanel() {
   panelOpen = false;
 }
 
-document.getElementById('slideHandle').addEventListener('click', () => {
+// ── Slide Handle: Click + Touch both ──
+let handleEl = document.getElementById('slideHandle');
+let touchStartY = 0;
+let touchMoved = false;
+
+// Click — laptop ke liye
+handleEl.addEventListener('click', () => {
   if (panelOpen) closePanel();
   else openPanel();
+});
+
+// Touchstart — sirf Y position save karo
+handleEl.addEventListener('touchstart', (e) => {
+  touchStartY = e.touches[0].clientY;
+  touchMoved = false;
+}, { passive: true });
+
+// Touchmove — track karo ki drag hua ya nahi
+handleEl.addEventListener('touchmove', (e) => {
+  let diff = Math.abs(e.touches[0].clientY - touchStartY);
+  if (diff > 8) touchMoved = true; // 8px se zyada hila = drag mana
+}, { passive: true });
+
+// Touchend — tap ya swipe decide karo
+handleEl.addEventListener('touchend', (e) => {
+  e.preventDefault(); // click event dobara fire na ho
+
+  if (!touchMoved) {
+    // Simple tap — toggle panel
+    if (panelOpen) closePanel();
+    else openPanel();
+  } else {
+    // Swipe gesture
+    let diff = touchStartY - e.changedTouches[0].clientY;
+    if (diff > 20) openPanel();       // swipe up = open
+    else if (diff < -20) closePanel(); // swipe down = close
+  }
 });
 
 document.getElementById('closeHistory').addEventListener('click', closePanel);
@@ -118,21 +148,4 @@ document.getElementById('closeHistory').addEventListener('click', closePanel);
 document.getElementById('clearHistory').addEventListener('click', () => {
   historyData = [];
   renderHistory();
-});
-
-let touchStartY = 0;
-let handleEl = document.getElementById('slideHandle');
-
-handleEl.addEventListener('touchstart', (e) => {
-  touchStartY = e.touches[0].clientY;
-});
-
-handleEl.addEventListener('touchend', (e) => {
-  let diff = touchStartY - e.changedTouches[0].clientY;
-  if (diff > 20) openPanel();
-  else if (diff < -20) closePanel();
-  else {
-    if (panelOpen) closePanel();
-    else openPanel();
-  }
 });
