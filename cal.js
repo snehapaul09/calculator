@@ -52,7 +52,6 @@ buttons.forEach(button => {
 function addHistory(expr, result) {
   historyData.unshift({ expr, result });
   renderHistory();
-
 }
 
 function renderHistory() {
@@ -62,7 +61,7 @@ function renderHistory() {
   if (historyData.length === 0) {
     let li = document.createElement('li');
     li.className = 'empty-msg';
-    li.textContent = 'No history yet ✨';
+    li.textContent = 'No history yet';
     list.appendChild(li);
     return;
   }
@@ -70,7 +69,6 @@ function renderHistory() {
   historyData.forEach((item, index) => {
     let li = document.createElement('li');
 
-    // Left side: expression + result (click to reuse)
     let left = document.createElement('div');
     left.className = 'history-left';
     left.innerHTML = `
@@ -109,6 +107,7 @@ function closePanel() {
   document.getElementById('historyPanel').classList.remove('open');
   panelOpen = false;
 }
+
 document.getElementById('slideHandle').addEventListener('click', () => {
   if (panelOpen) closePanel();
   else openPanel();
@@ -130,18 +129,10 @@ handleEl.addEventListener('touchstart', (e) => {
 
 handleEl.addEventListener('touchend', (e) => {
   let diff = touchStartY - e.changedTouches[0].clientY;
-  if (diff > 20) openPanel();       // swipe up → open
-  else if (diff < -20) closePanel(); // swipe down → close
+  if (diff > 20) openPanel();
+  else if (diff < -20) closePanel();
   else {
-    // simple tap
     if (panelOpen) closePanel();
     else openPanel();
   }
 });
-button.addEventListener('click', handleClick);
-button.addEventListener('touchstart', handleClick);
-
-function handleClick(e){
-    let value = e.target.innerHTML;
-    // same logic as before
-}
