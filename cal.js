@@ -49,18 +49,10 @@ buttons.forEach(button => {
 });
 
 // History: Add Entry
-function addToHistory(expression, result){
-    let li = document.createElement('li');
-    li.textContent = `${expression} = ${result}`;
+function addHistory(expr, result) {
+  historyData.unshift({ expr, result });
+  renderHistory();
 
-    li.addEventListener('click', () => {
-        string = result;
-        input.value = result;
-    });
-
-    historyList.prepend(li);
-
-    saveHistory(); // 👈 important
 }
 
 function renderHistory() {
@@ -152,14 +144,4 @@ button.addEventListener('touchstart', handleClick);
 function handleClick(e){
     let value = e.target.innerHTML;
     // same logic as before
-}
-
-window.onload = () => {
-    let data = localStorage.getItem("calcHistory");
-    if(data){
-        historyList.innerHTML = data;
-    }
-}
-function saveHistory(){
-    localStorage.setItem("calcHistory", historyList.innerHTML);
 }
