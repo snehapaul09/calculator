@@ -104,42 +104,35 @@ function closePanel() {
   panelOpen = false;
 }
 
-// ── Slide Handle: Click + Touch both ──
+// ── Slide Handle — pointerdown use karo ──
+// pointerdown = mouse click + touch dono pe instantly fire hota hai
 let handleEl = document.getElementById('slideHandle');
-let touchStartY = 0;
-let touchMoved = false;
+let pointerStartY = 0;
+let isDragging = false;
 
-// Click — laptop ke liye
-handleEl.addEventListener('click', () => {
-  if (panelOpen) closePanel();
-  else openPanel();
+handleEl.addEventListener('pointerdown', (e) => {
+  pointerStartY = e.clientY;
+  isDragging = false;
+  handleEl.setPointerCapture(e.pointerId);
 });
 
-// Touchstart — sirf Y position save karo
-handleEl.addEventListener('touchstart', (e) => {
-  touchStartY = e.touches[0].clientY;
-  touchMoved = false;
-}, { passive: true });
+handleEl.addEventListener('pointermove', (e) => {
+  if (Math.abs(e.clientY - pointerStartY) > 10) {
+    isDragging = true;
+  }
+});
 
-// Touchmove — track karo ki drag hua ya nahi
-handleEl.addEventListener('touchmove', (e) => {
-  let diff = Math.abs(e.touches[0].clientY - touchStartY);
-  if (diff > 8) touchMoved = true; // 8px se zyada hila = drag mana
-}, { passive: true });
+handleEl.addEventListener('pointerup', (e) => {
+  let diffY = pointerStartY - e.clientY;
 
-// Touchend — tap ya swipe decide karo
-handleEl.addEventListener('touchend', (e) => {
-  e.preventDefault(); // click event dobara fire na ho
-
-  if (!touchMoved) {
-    // Simple tap — toggle panel
+  if (!isDragging) {
+    // Simple tap/click — toggle
     if (panelOpen) closePanel();
     else openPanel();
   } else {
-    // Swipe gesture
-    let diff = touchStartY - e.changedTouches[0].clientY;
-    if (diff > 20) openPanel();       // swipe up = open
-    else if (diff < -20) closePanel(); // swipe down = close
+    // Drag/swipe — direction se decide karo
+    if (diffY > 20) openPanel();    // upar drag = open
+    else if (diffY < -20) closePanel(); // neeche drag = close
   }
 });
 
