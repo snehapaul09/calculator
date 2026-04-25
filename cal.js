@@ -49,9 +49,18 @@ buttons.forEach(button => {
 });
 
 // History: Add Entry
-function addHistory(expr, result) {
-  historyData.unshift({ expr, result });
-  renderHistory();
+function addToHistory(expression, result){
+    let li = document.createElement('li');
+    li.textContent = `${expression} = ${result}`;
+
+    li.addEventListener('click', () => {
+        string = result;
+        input.value = result;
+    });
+
+    historyList.prepend(li);
+
+    saveHistory(); // 👈 important
 }
 
 function renderHistory() {
@@ -137,3 +146,20 @@ handleEl.addEventListener('touchend', (e) => {
     else openPanel();
   }
 });
+button.addEventListener('click', handleClick);
+button.addEventListener('touchstart', handleClick);
+
+function handleClick(e){
+    let value = e.target.innerHTML;
+    // same logic as before
+}
+
+window.onload = () => {
+    let data = localStorage.getItem("calcHistory");
+    if(data){
+        historyList.innerHTML = data;
+    }
+}
+function saveHistory(){
+    localStorage.setItem("calcHistory", historyList.innerHTML);
+}
